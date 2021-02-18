@@ -1,0 +1,27 @@
+{
+	"name": "flappybird-ts",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"dev": "webpack serve",
+		"build": "webpack"
+	},
+	"author": "Rilomilo",
+	"devDependencies": {
+		"webpack-dev-server": "^3.11.2"
+	},
+	"dependencies": {
+		"clean-webpack-plugin": "^3.0.0",
+		"copy-webpack-plugin": "^7.0.0",
+		"css-loader": "^5.0.2",
+		"html-loader": "^2.0.0",
+		"html-webpack-plugin": "^5.1.0",
+		"style-loader": "^2.0.0",
+		"ts-loader": "^8.0.17",
+		"typescript": "^4.1.4",
+		"url-loader": "^4.1.1",
+		"webpack": "^5.21.2",
+		"webpack-cli": "^4.5.0"
+	}
+}
