@@ -1,6 +1,5 @@
 import SpiritController from "./SpiritController";
 
-
 export default class Runtime {
     private frame_timer:number=0
     private frame_cnt:number=0
@@ -19,8 +18,12 @@ export default class Runtime {
     }
 
     public run():void{
-        console.log(this.frame_cnt++)
-        this.frame_timer=requestAnimationFrame(this.run)
+        this.spirits.move()
+        this.spirits.checkCreatePencil()
+        this.spirits.checkRemovePencil()
+
+        this.spirits.draw()
+        this.frame_timer=requestAnimationFrame(()=>this.run())
     }
 
 }

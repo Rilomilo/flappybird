@@ -1,19 +1,19 @@
 import Spirit from "../Spirit";
-import Resource from "../../../Resource";
+import Resource from "../../../../Resource";
 
 export default class BackGround extends Spirit{
-    protected x: number;
-    protected y: number;
+    protected _x: number;
+    protected _y: number;
     private _level:number=1;
 
     public constructor() {
         super();
-        this.x=0
-        this.y=0
+        this._x=0
+        this._y=0
     }
 
     public draw():void {
-        super.draw(this.image,this.x,this.y);
+        super.draw(this.image,this._x,this._y);
     }
 
     get image(): HTMLImageElement {

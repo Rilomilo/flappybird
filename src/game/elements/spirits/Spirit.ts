@@ -1,6 +1,6 @@
 export default abstract class Spirit {
-    protected abstract x:number
-    protected abstract y:number
+    protected abstract _x:number //左边横坐标
+    protected abstract _y:number //上边纵坐标
 
     protected draw(
         image:HTMLImageElement,
@@ -16,5 +16,5 @@ export default abstract class Spirit {
         window.ctx.drawImage(image,sx,sy,sWidth,sHeight,dx,dy,dWidth,dHeight)
     }
 
-    protected abstract get image():HTMLImageElement
+    abstract get image():HTMLImageElement
 }
