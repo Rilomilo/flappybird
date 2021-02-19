@@ -1,12 +1,14 @@
 import BackGround from "./elements/spirits/static/BackGround";
 import Land from "./elements/spirits/player/Land";
 import Pencil from "./elements/spirits/player/Pencil";
+import Bird from "./elements/spirits/player/Bird";
 
 export default class SpiritController {
+    private _bird:Bird=new Bird()
     private backGround:BackGround=new BackGround()
     private land:Land=new Land()
     private pencil_ls:Pencil[]=[]
-    private move_speed:number=1
+    private move_speed:number=2
 
     public constructor() {
         this.checkCreatePencil()
@@ -19,6 +21,7 @@ export default class SpiritController {
             pencil.draw()
         }
         this.land.draw()
+        this._bird.draw()
     }
 
     /**
@@ -51,5 +54,9 @@ export default class SpiritController {
         for(let pencil of this.pencil_ls){
             pencil.x-=this.move_speed
         }
+    }
+
+    get bird():Bird{
+        return this._bird
     }
 }

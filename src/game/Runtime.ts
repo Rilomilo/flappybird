@@ -7,6 +7,8 @@ export default class Runtime {
 
     public constructor() {
         this.spirits.draw()
+        document.onclick=()=>this.handler()
+        document.ontouchstart=()=>this.handler()
     }
 
     public init():void{
@@ -14,7 +16,7 @@ export default class Runtime {
     }
 
     public handler():void{
-
+        this.spirits.bird.tap()
     }
 
     public run():void{
