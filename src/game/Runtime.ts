@@ -23,8 +23,9 @@ export default class Runtime {
         this.spirits.move()
         this.spirits.checkCreatePencil()
         this.spirits.checkRemovePencil()
-
+        if(this.spirits.handleCollision()) this.spirits
         this.spirits.draw()
+
         this.frame_timer=requestAnimationFrame(()=>this.run())
     }
 

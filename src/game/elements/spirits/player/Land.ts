@@ -24,6 +24,10 @@ export default class Land extends Spirit{
         return this._x;
     }
 
+    get top():number{
+        return this._y
+    }
+
     set x(value: number) {
         this._x=value
         if(-this._x+window.options.width>this.image.width){

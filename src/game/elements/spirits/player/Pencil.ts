@@ -5,7 +5,7 @@ export default class Pencil extends Spirit{
     protected _x: number;
     protected _y: number;
     private _level:number=1;
-    private readonly direction:"up"|"down";
+    private readonly _direction:"up"|"down";
 
     /**
      * @param direction up为上边的铅笔，down为下边的铅笔
@@ -14,7 +14,7 @@ export default class Pencil extends Spirit{
     constructor(direction:"up"|"down",y:number) {
         super()
         this._x=window.options.width
-        this.direction=direction
+        this._direction=direction
         if(direction=="up"){
             this._y=y-this.image.height
         }else{
@@ -26,19 +26,16 @@ export default class Pencil extends Spirit{
         super.draw(this.image,this._x,this._y);
     }
 
-    /**
-     * 判断铅笔是否已经移出画布
-     */
-    public isOutOfCanvas():boolean{
-        if(this._x+this.image.width<0){
-            return true
-        }else{
-            return false
-        }
+    public drawBase(ctx:CanvasRenderingContext2D){
+        ctx.drawImage(this.base,this._x,this._y)
     }
 
     get image():HTMLImageElement{
-        return Resource.instance.getImage("pencil_"+this.direction+this._level)!
+        return Resource.instance.getImage("pencil_"+this._direction+this._level)!
+    }
+
+    get base():HTMLImageElement{
+        return Resource.instance.getImage("pencil_"+this._direction+"_base")!
     }
 
     get x(): number {
@@ -67,5 +64,13 @@ export default class Pencil extends Spirit{
 
     get right():number{
         return this._x+this.image.width
+    }
+
+    get mid():number{
+        return (this.left+this.right)/2
+    }
+
+    get direction(): "up" | "down" {
+        return this._direction;
     }
 }

@@ -40,8 +40,7 @@ export default class SpiritController {
      * 删除已经移出画布的铅笔
      */
     public checkRemovePencil(){
-        if(this.pencil_ls[0].isOutOfCanvas()){
-            this.pencil_ls.shift()
+        while(this.pencil_ls.length!=0 && this.pencil_ls[0].right<0){
             this.pencil_ls.shift()
         }
     }
@@ -54,6 +53,89 @@ export default class SpiritController {
         for(let pencil of this.pencil_ls){
             pencil.x-=this.move_speed
         }
+    }
+
+    /**
+     * 检查小鸟的碰撞情况，若和地面碰撞则复位，若和Pencil碰撞则删去该Pencil
+     */
+    public handleCollision():boolean{
+        // 检测鸟与地板的碰撞
+        if(this.bird.bottom>this.land.top){
+            this.bird.reset()
+            return true
+        }
+
+        // 检测鸟与铅笔的碰撞
+        for(let i=0;i<this.pencil_ls.length;i++){
+            if(this.detectPencilCollision(this.bird,this.pencil_ls[i])){
+                this.pencil_ls.splice(i,1)
+                return true
+            }
+        }
+        return false
+    }
+
+    /**
+     * 检测鸟和铅笔是否发生碰撞
+     * @param bird 待检测的鸟
+     * @param pencil 待检测的铅笔
+     */
+    public detectPencilCollision(bird:Bird,pencil:Pencil):boolean{
+        // 建立相交矩形(欲检测部分)的边框模型
+        let border={
+            left: 0,
+            right:0,
+            top:0,
+            bottom:0
+        }
+        // 先取x方向重叠部分
+        border.left=Math.round(Math.max(bird.left,pencil.left))
+        border.right=Math.round(Math.min(bird.right,pencil.right))
+
+        // 再取y方向重叠部分
+        if(pencil.direction=="up"){
+            border.top=Math.round(bird.top)
+            border.bottom=Math.round(Math.min(pencil.bottom,bird.bottom))
+        }else{
+            border.top=Math.round(Math.max(bird.top,pencil.top))
+            border.bottom=Math.round(bird.bottom)
+        }
+
+        if(border.left>=border.right || border.top>=border.bottom){
+            return false
+        }
+
+        let canvas=document.createElement("canvas")
+        canvas.width=window.options.width
+        canvas.height=window.options.height
+        let ctx=canvas.getContext("2d")!
+        // let canvas=<HTMLCanvasElement>document.getElementById("canvas1")!
+        // let ctx=canvas.getContext("2d")!
+        ctx.clearRect(0,0,window.options.width,window.options.height)
+        ctx.beginPath()
+        ctx.moveTo(border.left,border.top)
+        ctx.lineTo(border.right,border.top)
+        ctx.lineTo(border.right,border.bottom)
+        ctx.lineTo(border.left,border.bottom)
+        ctx.lineTo(border.left,border.top)
+        ctx.stroke()
+
+        pencil.drawBase(ctx)
+        bird.drawBase(ctx)
+        let pixels=ctx.getImageData(border.left,border.top,border.right-border.left,border.bottom-border.top)
+
+        for(let i=0;i<pixels.data.length;i+=4){
+            if(pixels.data[i]!=0 && pixels.data[i+2]!=0){
+                return true
+            }
+        }
+
+        return false
+    }
+
+    public birdHavePassedFirstPencil():boolean{
+        if(this.pencil_ls.length==0) return false
+        return this.bird.mid>=this.pencil_ls[0].mid
     }
 
     get bird():Bird{
