@@ -4,12 +4,13 @@ import Resource from "../../../../Resource";
 export default class Land extends Spirit{
     protected _x: number;
     protected _y: number;
-    private _level:number=1;
+    private _level:number;
 
-    public constructor() {
+    public constructor(level:number) {
         super();
         this._x=0
         this._y=window.options.height-window.options.land_height
+        this._level=level
     }
 
     public draw():void{
@@ -35,7 +36,4 @@ export default class Land extends Spirit{
         }
     }
 
-    public set level(value: number) {
-        this._level = value;
-    }
 }

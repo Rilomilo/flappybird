@@ -5,10 +5,10 @@ export default class Bird extends Spirit{
     protected _x: number=0;
     protected _y: number=0;
     private _y0:number=0 //在点击时刻小鸟的y坐标
-    private sx:number[]=[8,60,113]
-    private sy:number=11
-    private width:number=31 // 小鸟的宽度
-    private height:number=24 // 小鸟的高度
+    public readonly sx:number[]=[8,60,113]
+    public readonly sy:number=11
+    public readonly width:number=31 // 小鸟的宽度
+    public readonly height:number=24 // 小鸟的高度
     private status:number=0 // 记录小鸟的飞行状态，对应image三种姿态
     private time:number=0 // 记录点击之后绘制的帧数
 
@@ -23,7 +23,7 @@ export default class Bird extends Spirit{
         this.time++
 
         // 更改小鸟的翅膀状态
-        this.status+=0.2
+        this.status+=0.1
         if(this.status>=3){
             this.status=0
         }

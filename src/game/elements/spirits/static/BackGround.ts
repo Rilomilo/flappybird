@@ -6,10 +6,11 @@ export default class BackGround extends Spirit{
     protected _y: number;
     private _level:number=1;
 
-    public constructor() {
+    public constructor(level:number) {
         super();
         this._x=0
         this._y=0
+        this._level=level
     }
 
     public draw():void {
@@ -20,7 +21,4 @@ export default class BackGround extends Spirit{
         return Resource.instance.getImage("background"+this._level)!;
     }
 
-    set level(value: number) {
-        this._level = value;
-    }
 }

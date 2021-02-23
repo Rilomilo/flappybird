@@ -5,16 +5,18 @@ export default class Pencil extends Spirit{
     protected _x: number;
     protected _y: number;
     private _level:number=1;
-    private readonly _direction:"up"|"down";
+    public readonly direction:"up"|"down";
 
     /**
+     * @param level 级别
      * @param direction up为上边的铅笔，down为下边的铅笔
      * @param y 表示上铅笔的下边或下铅笔的上边
      */
-    constructor(direction:"up"|"down",y:number) {
+    constructor(level:number,direction:"up"|"down",y:number) {
         super()
         this._x=window.options.width
-        this._direction=direction
+        this.direction=direction
+        this._level=level
         if(direction=="up"){
             this._y=y-this.image.height
         }else{
@@ -31,11 +33,11 @@ export default class Pencil extends Spirit{
     }
 
     get image():HTMLImageElement{
-        return Resource.instance.getImage("pencil_"+this._direction+this._level)!
+        return Resource.instance.getImage("pencil_"+this.direction+this._level)!
     }
 
     get base():HTMLImageElement{
-        return Resource.instance.getImage("pencil_"+this._direction+"_base")!
+        return Resource.instance.getImage("pencil_"+this.direction+"_base")!
     }
 
     get x(): number {
@@ -44,10 +46,6 @@ export default class Pencil extends Spirit{
 
     set x(value: number) {
         this._x = value;
-    }
-
-    set level(value: number) {
-        this._level = value;
     }
 
     get top():number{
@@ -68,9 +66,5 @@ export default class Pencil extends Spirit{
 
     get mid():number{
         return (this.left+this.right)/2
-    }
-
-    get direction(): "up" | "down" {
-        return this._direction;
     }
 }

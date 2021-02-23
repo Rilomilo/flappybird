@@ -4,14 +4,27 @@ import Pencil from "./elements/spirits/player/Pencil";
 import Bird from "./elements/spirits/player/Bird";
 
 export default class SpiritController {
-    private _bird:Bird=new Bird()
-    private backGround:BackGround=new BackGround()
-    private land:Land=new Land()
+    private bird=new Bird()
     private pencil_ls:Pencil[]=[]
-    private move_speed:number=2
+    // @ts-ignore
+    private backGround:BackGround
+    // @ts-ignore
+    private land:Land
+    // @ts-ignore
+    private level:number
+    // @ts-ignore
+    private move_speed:number
 
-    public constructor() {
-        this.checkCreatePencil()
+    /**
+     * 设定游戏等级并初始化响应spirit
+     * @param level 等级
+     * @param speed 移动速度
+     */
+    public setLevel(level:number,speed:number){
+        this.move_speed=speed
+        this.level=level
+        this.backGround=new BackGround(this.level)
+        this.land=new Land(this.level)
     }
 
     public draw():void{
@@ -21,7 +34,7 @@ export default class SpiritController {
             pencil.draw()
         }
         this.land.draw()
-        this._bird.draw()
+        this.bird.draw()
     }
 
     /**
@@ -31,8 +44,8 @@ export default class SpiritController {
     public checkCreatePencil():void{
         if(this.pencil_ls.length==0 || this.pencil_ls.length<=2 && this.pencil_ls[0].right<=window.options.width/2){
             let h=window.options.pencil.min_height+(window.options.pencil.max_height-window.options.pencil.min_height)*Math.random()
-            this.pencil_ls.push(new Pencil("up",h-window.options.pencil.gap))
-            this.pencil_ls.push(new Pencil("down",h))
+            this.pencil_ls.push(new Pencil(this.level,"up",h-window.options.pencil.gap))
+            this.pencil_ls.push(new Pencil(this.level,"down",h))
         }
     }
 
@@ -133,12 +146,15 @@ export default class SpiritController {
         return false
     }
 
+    /**
+     * 检查小鸟是否穿过前一对铅笔，用来判断得分
+     */
     public birdHavePassedFirstPencil():boolean{
         if(this.pencil_ls.length==0) return false
         return this.bird.mid>=this.pencil_ls[0].mid
     }
 
-    get bird():Bird{
-        return this._bird
+    public makeBirdFly(){
+        this.bird.tap()
     }
 }

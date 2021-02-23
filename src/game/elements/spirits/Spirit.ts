@@ -1,6 +1,6 @@
-export default abstract class Spirit {
-    protected abstract _x:number //左边横坐标
-    protected abstract _y:number //上边纵坐标
+import Element from "../Element";
+
+export default abstract class Spirit extends Element{
 
     protected draw(
         image:HTMLImageElement,

@@ -15,7 +15,9 @@ declare global{
                 min_height:number,
                 /*上下笔尖间隙*/
                 gap:number
-            }
+            },
+            /*初始生命数*/
+            lives:number
         }
     }
 }
@@ -30,7 +32,8 @@ window.options={
         max_height: 470,
         min_height: 190,
         gap: 110
-    }
+    },
+    lives: 3
 }
 
 import "./test"
