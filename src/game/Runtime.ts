@@ -4,8 +4,6 @@ import Live from "./elements/Live";
 import Level from "./elements/Level";
 
 export default class Runtime {
-    private frame_timer=0
-    private frame_cnt=0
     private score=new Score()
     private score_mark=false
     private live=new Live()
@@ -24,6 +22,9 @@ export default class Runtime {
         this.spirits.makeBirdFly()
     }
 
+    /**
+     * 将所有内容写入画布
+     */
     private render(){
         this.spirits.draw()
         this.score.draw()
@@ -37,6 +38,7 @@ export default class Runtime {
     private addScore(){
         this.score.value+=1
 
+        /* 穿过5个、12个柱子的时候升级 */
         switch (this.score.value) {
             case 5:
             case 12:
@@ -45,11 +47,16 @@ export default class Runtime {
         }
     }
 
+    /**
+     * 游戏运行逻辑主函数
+     */
     public run():void{
         // 移动铅笔和地板，检查创建和删除铅笔
         this.spirits.move()
         this.spirits.checkCreatePencil()
         this.spirits.checkRemovePencil()
+        // 将所有内容画在canvas上
+        this.render()
         // 处理碰撞
         if(this.spirits.handleCollision()){
             this.live.value--
@@ -57,7 +64,6 @@ export default class Runtime {
                 return
             }
         }
-
         // 小鸟穿过铅笔后处理计分
         if(this.spirits.birdHavePassedFirstPencil()){
             if(!this.score_mark){
@@ -68,9 +74,8 @@ export default class Runtime {
             this.score_mark=false
         }
 
-        // 将所有内容画在canvas上
-        this.render()
-        this.frame_timer=requestAnimationFrame(()=>this.run())
+        // setTimeout(()=>this.run(),200)
+        requestAnimationFrame(()=>this.run())
     }
 
 }

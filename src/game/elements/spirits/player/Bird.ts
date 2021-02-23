@@ -35,7 +35,7 @@ export default class Bird extends Spirit{
     }
 
     public drawBase(ctx:CanvasRenderingContext2D){
-        ctx.drawImage(this.base,this.sx[this.status],this.sy,this.width,this.height,this._x,this._y,this.width,this.height)
+        ctx.drawImage(this.base,this.sx[Math.floor(this.status)],this.sy,this.width,this.height,this._x,this._y,this.width,this.height)
     }
 
     /**
@@ -67,7 +67,7 @@ export default class Bird extends Spirit{
     }
 
     get bottom():number{
-        return this._y+this.height
+        return this._y+this.height-1
     }
 
     get left():number{
@@ -75,7 +75,7 @@ export default class Bird extends Spirit{
     }
 
     get right():number{
-        return this._x+this.width
+        return this._x+this.width-1
     }
 
     get mid():number{

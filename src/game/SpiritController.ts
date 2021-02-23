@@ -16,7 +16,7 @@ export default class SpiritController {
     private move_speed:number
 
     /**
-     * 设定游戏等级并初始化响应spirit
+     * 设定游戏等级并初始化相应spirit
      * @param level 等级
      * @param speed 移动速度
      */
@@ -70,6 +70,7 @@ export default class SpiritController {
 
     /**
      * 检查小鸟的碰撞情况，若和地面碰撞则复位，若和Pencil碰撞则删去该Pencil
+     * @return true表示发生碰撞
      */
     public handleCollision():boolean{
         // 检测鸟与地板的碰撞
@@ -114,7 +115,7 @@ export default class SpiritController {
             border.bottom=Math.round(bird.bottom)
         }
 
-        if(border.left>=border.right || border.top>=border.bottom){
+        if(border.left>border.right || border.top>border.bottom){
             return false
         }
 
@@ -122,23 +123,24 @@ export default class SpiritController {
         canvas.width=window.options.width
         canvas.height=window.options.height
         let ctx=canvas.getContext("2d")!
+
         // let canvas=<HTMLCanvasElement>document.getElementById("canvas1")!
         // let ctx=canvas.getContext("2d")!
-        ctx.clearRect(0,0,window.options.width,window.options.height)
-        ctx.beginPath()
-        ctx.moveTo(border.left,border.top)
-        ctx.lineTo(border.right,border.top)
-        ctx.lineTo(border.right,border.bottom)
-        ctx.lineTo(border.left,border.bottom)
-        ctx.lineTo(border.left,border.top)
-        ctx.stroke()
+        // ctx.clearRect(0,0,window.options.width,window.options.height)
+        // ctx.beginPath()
+        // ctx.moveTo(border.left,border.top)
+        // ctx.lineTo(border.right,border.top)
+        // ctx.lineTo(border.right,border.bottom)
+        // ctx.lineTo(border.left,border.bottom)
+        // ctx.lineTo(border.left,border.top)
+        // ctx.stroke()
 
         pencil.drawBase(ctx)
         bird.drawBase(ctx)
-        let pixels=ctx.getImageData(border.left,border.top,border.right-border.left,border.bottom-border.top)
+        let pixels=ctx.getImageData(border.left,border.top,border.right-border.left+1,border.bottom-border.top+1)
 
         for(let i=0;i<pixels.data.length;i+=4){
-            if(pixels.data[i]!=0 && pixels.data[i+2]!=0){
+            if(pixels.data[i]>50 && pixels.data[i+2]>50){
                 return true
             }
         }
@@ -147,7 +149,7 @@ export default class SpiritController {
     }
 
     /**
-     * 检查小鸟是否穿过前一对铅笔，用来判断得分
+     * 检查小鸟是否穿过最左侧一对铅笔，用来判断得分
      */
     public birdHavePassedFirstPencil():boolean{
         if(this.pencil_ls.length==0) return false

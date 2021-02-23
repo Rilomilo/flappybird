@@ -53,7 +53,7 @@ export default class Pencil extends Spirit{
     }
 
     get bottom():number{
-        return this._y+this.image.height
+        return this._y+this.image.height-1
     }
 
     get left():number{
@@ -61,7 +61,7 @@ export default class Pencil extends Spirit{
     }
 
     get right():number{
-        return this._x+this.image.width
+        return this._x+this.image.width-1
     }
 
     get mid():number{

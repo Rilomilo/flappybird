@@ -9,7 +9,7 @@ export default class Score extends Element{
         super()
         this._x=20
         this._y=window.options.height/18*2
-        this._value=1
+        this._value=0
     }
 
     public draw(){
