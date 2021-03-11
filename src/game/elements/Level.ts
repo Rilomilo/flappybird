@@ -1,13 +1,11 @@
 import Element from "./Element";
 
 export default class Level extends Element{
-    protected _x=window.innerWidth/3+15;
-    protected _y=window.innerHeight-30;
     private _value=1;
     private readonly speed_value=[3,4,5] // 存储每一个等级的移动速度
 
     constructor() {
-        super();
+        super(window.innerWidth/3+15,window.innerHeight-30);
     }
 
     public draw(){

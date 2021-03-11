@@ -11,7 +11,7 @@ export default class Runtime {
     private spirits=new SpiritController()
 
     public constructor() {
-        this.spirits.setLevel(this.level.value,this.level.speed)
+        this.spirits.init(this.level.value,this.level.speed)
         this.spirits.draw()
 
         document.onclick=()=>this.handler()
@@ -43,7 +43,7 @@ export default class Runtime {
             case 5:
             case 12:
                 this.level.value+=1
-                this.spirits.setLevel(this.level.value,this.level.speed)
+                this.spirits.init(this.level.value,this.level.speed)
         }
     }
 

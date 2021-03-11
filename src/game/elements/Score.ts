@@ -1,14 +1,10 @@
 import Element from "./Element";
 
 export default class Score extends Element{
-    protected _x: number;
-    protected _y: number;
     private _value:number;
 
     constructor() {
-        super()
-        this._x=20
-        this._y=window.options.height/18*2
+        super(20,window.options.height/18*2)
         this._value=0
     }
 

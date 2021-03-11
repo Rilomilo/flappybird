@@ -20,7 +20,7 @@ export default class SpiritController {
      * @param level 等级
      * @param speed 移动速度
      */
-    public setLevel(level:number,speed:number){
+    public init(level:number, speed:number){
         this.move_speed=speed
         this.level=level
         this.backGround=new BackGround(this.level)
@@ -66,6 +66,7 @@ export default class SpiritController {
         for(let pencil of this.pencil_ls){
             pencil.x-=this.move_speed
         }
+        this.bird.move()
     }
 
     /**

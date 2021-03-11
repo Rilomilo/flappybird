@@ -1,13 +1,12 @@
 import Element from "./Element";
 import Bird from "./spirits/player/Bird";
+import Resource from "../../Resource";
 
 export default class Live extends Element{
-    protected _x=20;
-    protected _y=window.options.height / 18*2;
     private _value=window.options.lives
 
     constructor() {
-        super();
+        super(20,window.options.height / 18*2);
     }
 
     public draw(){
@@ -22,18 +21,17 @@ export default class Live extends Element{
         // this.ctx.fillStyle = '#ffcbeb';
         window.ctx.fillText("剩余小鸟：",this._x,this._y);
         // 绘制小鸟
-        let bird=new Bird()
         for(let i=0; i<this._value; i++){
             window.ctx.drawImage(
-                bird.image,
-                bird.sx[0],
-                bird.sy,
-                bird.width,
-                bird.height,
-                140+(bird.width+10)*i,
+                Resource.instance.getImage("birds")!,
+                Bird.sx[0],
+                Bird.sy,
+                Bird.width,
+                Bird.height,
+                140+(Bird.width+10)*i,
                 this._y-20,
-                bird.width,
-                bird.height
+                Bird.width,
+                Bird.height
             )
         }
     }

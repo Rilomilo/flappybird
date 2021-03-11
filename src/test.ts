@@ -4,15 +4,16 @@ import Pencil from "./game/elements/spirits/player/Pencil";
 
 console.log(window.options.width,window.options.height);
 
-(async function(){
+async function main() {
     await Resource.instance.load()
 
-    let game=new Runtime()
+    let game = new Runtime()
     game.run()
 
+}
 
-})()
 
+main()
 
 
 
