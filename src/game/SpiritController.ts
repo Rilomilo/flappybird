@@ -6,25 +6,16 @@ import Bird from "./elements/spirits/player/Bird";
 export default class SpiritController {
     private bird=new Bird()
     private pencil_ls:Pencil[]=[]
-    // @ts-ignore
-    private backGround:BackGround
-    // @ts-ignore
-    private land:Land
-    // @ts-ignore
-    private level:number
-    // @ts-ignore
-    private move_speed:number
+    private backGround:BackGround=new BackGround(1)
+    private land:Land=new Land(1)
 
     /**
      * 设定游戏等级并初始化相应spirit
      * @param level 等级
-     * @param speed 移动速度
      */
-    public init(level:number, speed:number){
-        this.move_speed=speed
-        this.level=level
-        this.backGround=new BackGround(this.level)
-        this.land=new Land(this.level)
+    public init(level:number){
+        this.backGround=new BackGround(level)
+        this.land=new Land(level)
     }
 
     public draw():void{
@@ -38,14 +29,25 @@ export default class SpiritController {
     }
 
     /**
+     * 将所有spirit移动一帧
+     */
+    public move(speed:number){
+        this.land.x-=speed
+        for(let pencil of this.pencil_ls){
+            pencil.x-=speed
+        }
+        this.bird.move()
+    }
+
+    /**
      * 当画布上没铅笔或只有两根铅笔并且已经过半时，新创建一对铅笔
      * 创建上下一对铅笔，高度在范围内取随机值
      */
-    public checkCreatePencil():void{
+    public checkCreatePencil(level:number):void{
         if(this.pencil_ls.length==0 || this.pencil_ls.length<=2 && this.pencil_ls[0].right<=window.options.width/2){
             let h=window.options.pencil.min_height+(window.options.pencil.max_height-window.options.pencil.min_height)*Math.random()
-            this.pencil_ls.push(new Pencil(this.level,"up",h-window.options.pencil.gap))
-            this.pencil_ls.push(new Pencil(this.level,"down",h))
+            this.pencil_ls.push(new Pencil(level,"up",h-window.options.pencil.gap))
+            this.pencil_ls.push(new Pencil(level,"down",h))
         }
     }
 
@@ -56,17 +58,6 @@ export default class SpiritController {
         while(this.pencil_ls.length!=0 && this.pencil_ls[0].right<0){
             this.pencil_ls.shift()
         }
-    }
-
-    /**
-     * 水平移动地面和铅笔
-     */
-    public move(){
-        this.land.x-=this.move_speed
-        for(let pencil of this.pencil_ls){
-            pencil.x-=this.move_speed
-        }
-        this.bird.move()
     }
 
     /**
@@ -106,15 +97,9 @@ export default class SpiritController {
         // 先取x方向重叠部分
         border.left=Math.round(Math.max(bird.left,pencil.left))
         border.right=Math.round(Math.min(bird.right,pencil.right))
-
         // 再取y方向重叠部分
-        if(pencil.direction=="up"){
-            border.top=Math.round(bird.top)
-            border.bottom=Math.round(Math.min(pencil.bottom,bird.bottom))
-        }else{
-            border.top=Math.round(Math.max(bird.top,pencil.top))
-            border.bottom=Math.round(bird.bottom)
-        }
+        border.bottom=Math.round(Math.min(pencil.bottom,bird.bottom))
+        border.top=Math.round(Math.max(bird.top,pencil.top))
 
         if(border.left>border.right || border.top>border.bottom){
             return false

@@ -4,7 +4,7 @@ export default class Resource {
         ["background1","res/img/background1.png"],
         ["background2","res/img/background2.png"],
         ["background3","res/img/background3.png"],
-        ["birds_base","res/img/birds_base.png"],
+        ["birds_base","res/img/birds_base1.png"],
         ["birds","res/img/birds.png"],
         ["land1","res/img/land1.png"],
         ["land2","res/img/land2.png"],
@@ -39,7 +39,7 @@ export default class Resource {
             image.src=path
             this.image_map.set(name,image)
 
-            ls.push(new Promise((resolve, reject)=>{
+            ls.push(new Promise((resolve)=>{
                 image.onload=function () {
                     resolve(null)
                 }

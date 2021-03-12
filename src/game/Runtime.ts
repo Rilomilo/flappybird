@@ -11,11 +11,15 @@ export default class Runtime {
     private spirits=new SpiritController()
 
     public constructor() {
-        this.spirits.init(this.level.value,this.level.speed)
         this.spirits.draw()
 
         document.onclick=()=>this.handler()
         document.ontouchstart=()=>this.handler()
+    }
+
+    public destructor(){
+        document.onclick=()=>{}
+        document.ontouchstart=()=>{}
     }
 
     private handler():void{
@@ -43,7 +47,7 @@ export default class Runtime {
             case 5:
             case 12:
                 this.level.value+=1
-                this.spirits.init(this.level.value,this.level.speed)
+                this.spirits.init(this.level.value)
         }
     }
 
@@ -52,8 +56,8 @@ export default class Runtime {
      */
     public run():void{
         // 移动铅笔和地板，检查创建和删除铅笔
-        this.spirits.move()
-        this.spirits.checkCreatePencil()
+        this.spirits.move(this.level.speed)
+        this.spirits.checkCreatePencil(this.level.value)
         this.spirits.checkRemovePencil()
         // 将所有内容画在canvas上
         this.render()
