@@ -1,7 +1,7 @@
 import Element from "./Element";
 
 export default class Level extends Element{
-    private static readonly speed_value=[3,4,5] // 存储每一个等级的移动速度
+    private static readonly speed_value=[2,3,4,5] // 存储每一个等级的移动速度
     private _value=1;
 
     constructor() {

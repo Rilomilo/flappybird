@@ -4,19 +4,23 @@ export default class Resource {
         ["background1","res/img/background1.png"],
         ["background2","res/img/background2.png"],
         ["background3","res/img/background3.png"],
+        ["background4","res/img/background4.png"],
         ["birds_base","res/img/birds_base1.png"],
         ["birds","res/img/birds.png"],
         ["land1","res/img/land1.png"],
         ["land2","res/img/land2.png"],
         ["land3","res/img/land3.png"],
+        ["land4","res/img/land4.png"],
         ["pencil_down_base","res/img/pencil_down_base.png"],
         ["pencil_down1","res/img/pencil_down1.png"],
         ["pencil_down2","res/img/pencil_down2.png"],
         ["pencil_down3","res/img/pencil_down3.png"],
+        ["pencil_down4","res/img/pencil_down4.png"],
         ["pencil_up_base","res/img/pencil_up_base.png"],
         ["pencil_up1","res/img/pencil_up1.png"],
         ["pencil_up2","res/img/pencil_up2.png"],
-        ["pencil_up3","res/img/pencil_up3.png"]
+        ["pencil_up3","res/img/pencil_up3.png"],
+        ["pencil_up4","res/img/pencil_up4.png"]
     ]
     private image_map:Map<string,HTMLImageElement>=new Map<string,HTMLImageElement>() // 存储图像
 

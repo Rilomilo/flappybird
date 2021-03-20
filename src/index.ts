@@ -9,9 +9,9 @@ declare global{
             /*地面宽度*/
             land_height:number,
             pencil:{
-                /*最低的DownPencil笔尖纵坐标*/
+                /*最低的UpPencil笔尖纵坐标*/
                 max_height:number,
-                /*最高的DownPencil笔尖纵坐标*/
+                /*最高的UpPencil笔尖纵坐标*/
                 min_height:number,
                 /*上下笔尖间隙*/
                 gap:number
@@ -29,11 +29,13 @@ window.options={
     width:375,
     land_height:112,
     pencil: {
-        max_height: 470,
-        min_height: 190,
-        gap: 110
+        max_height: 0,
+        min_height: 0,
+        gap: 135
     },
     lives: 3
 }
+window.options.pencil.max_height=window.options.height/6
+window.options.pencil.min_height=window.options.height/2
 
 import "./test"

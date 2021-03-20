@@ -13,8 +13,14 @@ export default class Runtime {
     public constructor() {
         this.spirits.draw()
 
-        document.onclick=()=>this.handler()
-        document.ontouchstart=()=>this.handler()
+        // document.onclick=()=>this.handler()
+        document.onmousedown=()=>{
+            this.handler()
+        }
+        document.ontouchstart=()=>{
+            document.onmousedown=()=>{}
+            this.handler()
+        }
     }
 
     public destructor(){
@@ -42,10 +48,11 @@ export default class Runtime {
     private addScore(){
         this.score.value+=1
 
-        /* 穿过5个、12个柱子的时候升级 */
+        /* 穿过5个、12个、19个柱子的时候升级 */
         switch (this.score.value) {
             case 5:
             case 12:
+            case 19:
                 this.level.value+=1
                 this.spirits.init(this.level.value)
         }
@@ -78,7 +85,7 @@ export default class Runtime {
             this.score_mark=false
         }
 
-        // setTimeout(()=>this.run(),200)
+        // setTimeout(()=>this.run(),16.7)
         requestAnimationFrame(()=>this.run())
     }
 

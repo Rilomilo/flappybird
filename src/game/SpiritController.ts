@@ -46,8 +46,9 @@ export default class SpiritController {
     public checkCreatePencil(level:number):void{
         if(this.pencil_ls.length==0 || this.pencil_ls.length<=2 && this.pencil_ls[0].right<=window.options.width/2){
             let h=window.options.pencil.min_height+(window.options.pencil.max_height-window.options.pencil.min_height)*Math.random()
-            this.pencil_ls.push(new Pencil(level,"up",h-window.options.pencil.gap))
-            this.pencil_ls.push(new Pencil(level,"down",h))
+
+            this.pencil_ls.push(new Pencil(level,"up",h))
+            this.pencil_ls.push(new Pencil(level,"down",h+window.options.pencil.gap))
         }
     }
 
