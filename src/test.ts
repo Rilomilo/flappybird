@@ -1,4 +1,4 @@
-import Resource from "./Resource";
+import Resource from "./modules/Resource";
 import Runtime from "./game/Runtime";
 
 console.log(window.options.width,window.options.height);
@@ -13,6 +13,3 @@ async function main() {
 
 
 main()
-
-
-

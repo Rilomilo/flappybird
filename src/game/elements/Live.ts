@@ -1,6 +1,6 @@
 import Element from "./Element";
-import Bird from "./spirits/player/Bird";
-import Resource from "../../Resource";
+import Bird from "./spirits/Bird";
+import Resource from "../../modules/Resource";
 
 export default class Live extends Element{
     private _value=window.options.lives

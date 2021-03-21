@@ -1,5 +1,5 @@
 import Element from "../Element";
-import Resource from "../../../Resource";
+import Resource from "../../../modules/Resource";
 
 export default abstract class Spirit extends Element{
     protected name: string;

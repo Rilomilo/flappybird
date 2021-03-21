@@ -1,7 +1,7 @@
-import BackGround from "./elements/spirits/static/BackGround";
-import Land from "./elements/spirits/player/Land";
-import Pencil from "./elements/spirits/player/Pencil";
-import Bird from "./elements/spirits/player/Bird";
+import BackGround from "./elements/spirits/BackGround";
+import Land from "./elements/spirits/Land";
+import Pencil from "./elements/spirits/Pencil";
+import Bird from "./elements/spirits/Bird";
 
 export default class SpiritController {
     private bird=new Bird()

@@ -2,7 +2,7 @@ import SpiritController from "./SpiritController";
 import Score from "./elements/Score";
 import Live from "./elements/Live";
 import Level from "./elements/Level";
-import Sound from "../Sound";
+import Sound from "../modules/Sound";
 
 export default class Runtime {
     private score=new Score()

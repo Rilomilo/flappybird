@@ -1,5 +1,5 @@
-import Spirit from "../Spirit";
-import Resource from "../../../../Resource";
+import Spirit from "./Spirit";
+import Resource from "../../../modules/Resource";
 
 export default class Bird extends Spirit{
     public static readonly sx:number[]=[8,60,113]

@@ -1,4 +1,4 @@
-import Spirit from "../Spirit";
+import Spirit from "./Spirit";
 
 export default class BackGround extends Spirit{
 

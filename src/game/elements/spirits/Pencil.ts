@@ -1,5 +1,5 @@
-import Resource from "../../../../Resource";
-import Spirit from "../Spirit"
+import Resource from "../../../modules/Resource";
+import Spirit from "./Spirit"
 
 export default class Pencil extends Spirit{
     public readonly direction:"up"|"down";
