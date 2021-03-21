@@ -21,6 +21,8 @@ window.options.pencil.min_height=window.options.height/2
 window.gameMenu=GameMenu.instance
 
 async function main() {
+    window.ctx.font = '25px Arial';
+    window.ctx.fillText("资源正在加载...",window.options.width/2-80,window.options.height/3);
     await Resource.instance.load();
     window.gameMenu.newGame();
 }

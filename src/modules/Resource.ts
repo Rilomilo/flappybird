@@ -38,7 +38,7 @@ export default class Resource {
         // 加载images
         for(let image_name of this.img_res_ls ){
             let image=new Image();
-            image.src="../res/img/"+image_name+".png";
+            image.src="./res/img/"+image_name+".png";
             this.image_map.set(image_name,image);
 
             ls.push(new Promise((resolve)=>{
@@ -51,7 +51,7 @@ export default class Resource {
         let audioContext=new AudioContext();
         for(let sound_name of this.sound_res_ls){
             let request=new XMLHttpRequest();
-            let path="../res/sound/"+sound_name+".mp3";
+            let path="./res/sound/"+sound_name+".mp3";
             request.responseType="arraybuffer";
             request.open("GET",path);
 
