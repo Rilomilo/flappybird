@@ -34,6 +34,10 @@ module.exports={
                     "css-loader",
                     "less-loader"
                 ]
+            },
+            {
+                test: /\.(jpg|jpeg|svg|png|gif|ico)$/,
+                loader: 'url-loader'
             }
         ]
     },

@@ -1,7 +1,9 @@
 import "./declare"
 import "./style/style.less"
+import Resource from "./modules/Resource";
+import GameMenu from "./game/GameMenu";
 
-let canvas:HTMLCanvasElement=<HTMLCanvasElement>document.getElementById("canvas")
+let canvas=<HTMLCanvasElement>document.getElementById("canvas")
 window.ctx=canvas.getContext("2d")!
 window.options={
     height:667,
@@ -16,5 +18,10 @@ window.options={
 }
 window.options.pencil.max_height=window.options.height/6
 window.options.pencil.min_height=window.options.height/2
+window.gameMenu=GameMenu.instance
 
-import "./test"
+async function main() {
+    await Resource.instance.load();
+    window.gameMenu.newGame();
+}
+main()

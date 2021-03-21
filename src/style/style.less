@@ -1,10 +1,70 @@
+@width:375px;
+@height:667px;
+
 *{
 	margin: 0;
 	padding: 0;
 }
-
+body{
+	height: 100vh;
+	background-image: url("../../res/img/bg.jpg");
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
+}
 #container{
+	position: relative;
 	margin: 0 auto;
-	width: 375px;
-	height: 667px;
+	width: @width;
+	height: @height;
+
+	#game-menu{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		padding: 50px;
+		box-sizing: border-box;
+
+		text-align: center;
+		//line-height: 50px;
+		color: antiquewhite;
+		background-color: rgba(0,0,0,.6);
+
+		.game-title{
+			margin: 20px 0;
+			font-size: 55px;
+		}
+		.score-title{
+			margin: 20px 0;
+		}
+		.score{
+			margin: 30px;
+			font-size: 70px;
+		}
+		.restart-button{
+			margin: 150px auto 0;
+			width: 100px;
+			height: 40px;
+
+			line-height: 40px;
+			border-radius:6px;
+
+			&:hover{
+				color: greenyellow;
+				background-color: rgba(255,255,255,.3);
+				cursor: pointer;
+			}
+			&:active{
+				background-color: rgba(255,255,255,.4);
+			}
+		}
+	}
+	#tips{
+		position: absolute;
+		left: calc(@width / 2 - 76px);
+		bottom:  140px;
+
+		color: antiquewhite;
+		font-size: 20px;
+	}
 }

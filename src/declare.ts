@@ -1,4 +1,4 @@
-export {}
+import GameMenu from "./game/GameMenu";
 
 declare global{
     interface Window {
@@ -20,6 +20,7 @@ declare global{
             },
             /*初始生命数*/
             lives:number
-        }
+        },
+        gameMenu:GameMenu
     }
 }

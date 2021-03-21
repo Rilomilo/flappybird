@@ -13,24 +13,19 @@ export default class Runtime {
     private sound=Sound.instance
 
     public constructor() {
-        this.spirits.draw()
-
-        // document.onclick=()=>this.handler()
-        document.onmousedown=()=>{
-            this.handler()
-        }
-        document.ontouchstart=()=>{
-            document.onmousedown=()=>{}
-            this.handler()
-        }
+        this.spirits.draw();
     }
 
-    public destructor(){
-        document.onclick=()=>{}
-        document.ontouchstart=()=>{}
+    private gameOver(){
+        localStorage.setItem("score", this.score.value+"");
+        let best_score=eval(localStorage.getItem("best_score")||"0");
+        if(this.score.value>best_score){
+            localStorage.setItem("best_score", this.score.value+"");
+        }
+        window.gameMenu.endGame();
     }
 
-    private handler():void{
+    public eventHandler():void{
         this.sound.play("fly");
         this.spirits.makeBirdFly()
     }
@@ -86,6 +81,7 @@ export default class Runtime {
             this.sound.play("duang");
             this.live.value--
             if(this.live.value<0){
+                this.gameOver();
                 return
             }
         }
