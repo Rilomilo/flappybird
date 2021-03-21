@@ -2,6 +2,7 @@ import SpiritController from "./SpiritController";
 import Score from "./elements/Score";
 import Live from "./elements/Live";
 import Level from "./elements/Level";
+import Sound from "../Sound";
 
 export default class Runtime {
     private score=new Score()
@@ -9,6 +10,7 @@ export default class Runtime {
     private live=new Live()
     private level=new Level()
     private spirits=new SpiritController()
+    private sound=Sound.instance
 
     public constructor() {
         this.spirits.draw()
@@ -29,6 +31,7 @@ export default class Runtime {
     }
 
     private handler():void{
+        this.sound.play("fly");
         this.spirits.makeBirdFly()
     }
 
@@ -46,6 +49,7 @@ export default class Runtime {
      * 加分和升级规则
      */
     private addScore(){
+        this.sound.play("score")
         this.score.value+=1
 
         /* 穿过5个、12个、19个柱子的时候升级 */
@@ -66,15 +70,6 @@ export default class Runtime {
         this.spirits.move(this.level.speed)
         this.spirits.checkCreatePencil(this.level.value)
         this.spirits.checkRemovePencil()
-        // 将所有内容画在canvas上
-        this.render()
-        // 处理碰撞
-        if(this.spirits.handleCollision()){
-            this.live.value--
-            if(this.live.value<0){
-                return
-            }
-        }
         // 小鸟穿过铅笔后处理计分
         if(this.spirits.birdHavePassedFirstPencil()){
             if(!this.score_mark){
@@ -84,7 +79,16 @@ export default class Runtime {
         }else{
             this.score_mark=false
         }
-
+        // 将所有内容画在canvas上
+        this.render()
+        // 处理碰撞
+        if(this.spirits.handleCollision()){
+            this.sound.play("duang");
+            this.live.value--
+            if(this.live.value<0){
+                return
+            }
+        }
         // setTimeout(()=>this.run(),16.7)
         requestAnimationFrame(()=>this.run())
     }

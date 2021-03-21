@@ -1,31 +1,81 @@
 export default class Resource {
     private static _instance:Resource|null
-    private res_ls:[string,string][]=[
-        ["background1","res/img/background1.png"],
-        ["background2","res/img/background2.png"],
-        ["background3","res/img/background3.png"],
-        ["background4","res/img/background4.png"],
-        ["birds_base","res/img/birds_base1.png"],
-        ["birds","res/img/birds.png"],
-        ["land1","res/img/land1.png"],
-        ["land2","res/img/land2.png"],
-        ["land3","res/img/land3.png"],
-        ["land4","res/img/land4.png"],
-        ["pencil_down_base","res/img/pencil_down_base.png"],
-        ["pencil_down1","res/img/pencil_down1.png"],
-        ["pencil_down2","res/img/pencil_down2.png"],
-        ["pencil_down3","res/img/pencil_down3.png"],
-        ["pencil_down4","res/img/pencil_down4.png"],
-        ["pencil_up_base","res/img/pencil_up_base.png"],
-        ["pencil_up1","res/img/pencil_up1.png"],
-        ["pencil_up2","res/img/pencil_up2.png"],
-        ["pencil_up3","res/img/pencil_up3.png"],
-        ["pencil_up4","res/img/pencil_up4.png"]
+    private img_res_ls:string[]=[
+        "background1",
+        "background2",
+        "background3",
+        "background4",
+        "birds_base",
+        "birds",
+        "land1",
+        "land2",
+        "land3",
+        "land4",
+        "pencil_down_base",
+        "pencil_down1",
+        "pencil_down2",
+        "pencil_down3",
+        "pencil_down4",
+        "pencil_up_base",
+        "pencil_up1",
+        "pencil_up2",
+        "pencil_up3",
+        "pencil_up4",
+    ]
+    private sound_res_ls=[
+        "duang",
+        "fly",
+        "score"
     ]
     private image_map:Map<string,HTMLImageElement>=new Map<string,HTMLImageElement>() // 存储图像
+    private sound_buffer_map:Map<string,AudioBuffer>=new Map<string, AudioBuffer>() // 存储音频buffer数组
 
-    private constructor() {
+    private constructor() {}
 
+    public load():Promise<null[]>{
+        let ls:Promise<null>[]=[]
+
+        // 加载images
+        for(let image_name of this.img_res_ls ){
+            let image=new Image();
+            image.src="../res/img/"+image_name+".png";
+            this.image_map.set(image_name,image);
+
+            ls.push(new Promise((resolve)=>{
+                image.onload=function () {
+                    resolve(null)
+                }
+            }))
+        }
+        // 加载sound
+        let audioContext=new AudioContext();
+        for(let sound_name of this.sound_res_ls){
+            let request=new XMLHttpRequest();
+            let path="../res/sound/"+sound_name+".mp3";
+            request.responseType="arraybuffer";
+            request.open("GET",path);
+
+            ls.push(new Promise(resolve=>{
+                request.onload=()=>{
+                    audioContext.decodeAudioData(request.response).then(buffer=>{
+                        this.sound_buffer_map.set(sound_name,buffer);
+                        resolve(null);
+                    })
+                }
+            }))
+
+            request.send()
+        }
+
+        return Promise.all(ls)
+    }
+
+    public getImage(name:string):HTMLImageElement | undefined{
+        return this.image_map.get(name)
+    }
+
+    public getAudioBuffer(name:string):AudioBuffer|undefined{
+        return this.sound_buffer_map.get(name);
     }
 
     public static get instance(){
@@ -35,24 +85,4 @@ export default class Resource {
         return this._instance
     }
 
-    public load():Promise<null[]>{
-        let ls:Promise<null>[]=[]
-
-        for(let [name,path] of this.res_ls ){
-            let image=new Image()
-            image.src=path
-            this.image_map.set(name,image)
-
-            ls.push(new Promise((resolve)=>{
-                image.onload=function () {
-                    resolve(null)
-                }
-            }))
-        }
-        return Promise.all(ls)
-    }
-
-    public getImage(name:string):HTMLImageElement | undefined{
-        return this.image_map.get(name)
-    }
 }
